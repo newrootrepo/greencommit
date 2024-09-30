@@ -13,18 +13,21 @@
             position: relative;
             margin-bottom: 30px;
         }
-    
+
         input {
             width: 100%;
             padding: 10px;
             font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
-    
+
         input:focus {
             outline: none;
+            border-color: #253e01;
         }
-    
-        label {
+
+        .placeholder-label {
             position: absolute;
             top: 50%;
             left: 10px;
@@ -34,21 +37,54 @@
             transition: 0.2s ease all;
             transform: translateY(-50%);
         }
-    
-        input:focus+label,
-        input:not(:placeholder-shown)+label {
+
+        input:focus ~ .placeholder-label,
+        input:not(:placeholder-shown) ~ .placeholder-label {
             top: -10px;
             font-size: 12px;
-            color: #efefef;
+            /* color: #e9e9e9; */
+            background-color: rgba(255, 255, 255, 0);
+            padding: 0 5px;
         }
-    
+
         input.error {
-            border-color: hsl(0, 100%, 50%);
+            border-color: #ff0000;
         }
-    
-        label.error-message {
-            color: rgb(255, 115, 115);
+
+        .error-message {
+            color: #ff0000;
+            font-size: 12px;
         }
+
+        .btn-signin {
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-signin:hover {
+            background-color: #3a5a50;
+        }
+
+        .text-center {
+            text-align: center;
+            margin: 10px 0;
+        }
+        a {
+            color: #dee1df;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #dee1df;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -60,17 +96,18 @@
                     <form id="signin-form">
                         <div class="error-message" id="global-label"></div>
                         <div class="input-container">
-                            <input type="email" id="email" name="email" placeholder="Email">
-                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email" placeholder=" ">
+                            <span class="placeholder-label" id="email-label">Email</span>
                         </div>
-                    
                         <div class="input-container">
-                            <input type="password" id="password" name="password" placeholder="Password">
-                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder=" ">
+                            <span class="placeholder-label" id="password-label">Password</span>
                         </div>
                         <button class="btn-signin button-Submit">Submit</button>
-                        <div class="text-center text-white p-0 m-0">or</div>
-                        <a class="text-center text-white" href="#">Sign up with Google</a>
+                        <div class="text-center">or</div>
+                        <div class="text-center">
+                            <a href="#">Sign up with Google</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -94,8 +131,8 @@
                 const passwordInput = document.getElementById('password');
 
                 // Select corresponding labels
-                const emailLabel = document.querySelector('label[for="email"]');
-                const passwordLabel = document.querySelector('label[for="password"]');
+                const emailLabel = document.getElementById('email-label');
+                const passwordLabel = document.getElementById('password-label');
 
                 // Store current values
                 let emailValue = emailInput.value.trim();
@@ -103,11 +140,11 @@
 
                 // Regex patterns
                 const emailRegex = /^([a-zA-Z0-9._]+)@([a-zA-Z0-9])+\.([a-z]+)(\.[a-z]+)?$/;
-                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{6,15}$/;
 
                 // Validation
                 let isValid = true;
 
+                // Email validation
                 if (!emailValue) {
                     showError(emailInput, emailLabel, 'Email is required');
                     isValid = false;
@@ -118,66 +155,66 @@
                     clearError(emailInput, emailLabel, 'Email');
                 }
 
+                // Password validation
                 if (!passwordValue) {
-                    showError(passwordInput, passwordLabel, 'Password is required');
+                    showError(passwordInput, passwordLabel, 'Password is required', 'red');
                     isValid = false;
                 } else {
                     clearError(passwordInput, passwordLabel, 'Password');
                 }
 
-                return isValid;
+        
+                if (isValid) {
+                    const data = {
+                        email: emailValue,
+                        password: passwordValue
+                    };
+                    signin(data);
+                }
             });
 
-            function showError(input, label, message) {
-                input.classList.add('error');
-                label.textContent = message;  
-                label.classList.add('error-message');
-            }
-
-  
-            function clearError(input, label, defaultMessage) {
-                input.classList.remove('error');
-                label.textContent = defaultMessage;  
-                label.classList.remove('error-message');
-            }
-
-            if (isValid) {
-                const data = {
-                    emailInput,
-                    passwordInput
-                }
-                signin(data)
-            }
-
-            function signin(email, password) {
+            function signin(data) {
                 fetch('/signin', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ data })
-                }).then(res => res.json())
-                    .then(res => {
+                    body: JSON.stringify(data),
+                })
+                    .then((res) => res.json())
+                    .then((res) => {
                         if (res.success) {
                             var notyf = new Notyf();
                             notyf.success(res.message, 1000);
                         } else {
-                            let errorLabel = document.getElementById('global-label')
-                            if (errorLabel) {
-                                errorLabel.textContent = res.message
-                                errorLabel.textContent = res.message
-                            }
-                        }
-                    }).catch(error => {
-                        let errorLabel = document.getElementById('global-label')
-                        if (errorLabel) {
-                            errorLabel.textContent = error.message
-                            errorLabel.textContent = error.message
+                            handleGlobalError(res.message);
                         }
                     })
+                    .catch((error) => {
+                        handleGlobalError(error.message);
+                    });
             }
 
-        })
+
+            function showError(input, label, message) {
+                input.classList.add('error');
+                label.textContent = message;
+                label.classList.add('error-message');
+            }
+
+            function clearError(input, label, defaultMessage) {
+                input.classList.remove('error');
+                label.textContent = defaultMessage;
+                label.classList.remove('error-message');
+            }
+
+            function handleGlobalError(message) {
+                let errorLabel = document.getElementById('global-label');
+                if (errorLabel) {
+                    errorLabel.textContent = message;
+                }
+            }
+        });
 
     </script>
 </body>
