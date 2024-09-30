@@ -6,6 +6,7 @@
     <title><%=title %></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
 
     <style>
@@ -92,8 +93,8 @@
         <div class="inner-container"> 
             <div class="inner-inner-container">
                 <div class="input-container">
-                    <h1>Sign In</h1>
-                    <form id="signin-form">
+                    <h1>Sign Up</h1>
+                    <form id="signup-form">
                         <div class="error-message" id="global-label"></div>
                         <div class="input-container">
                             <input type="text" id="email" name="email" placeholder=" ">
@@ -113,12 +114,10 @@
             </div>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('signin-form');
@@ -140,6 +139,7 @@
 
                 // Regex patterns
                 const emailRegex = /^([a-zA-Z0-9._]+)@([a-zA-Z0-9])+\.([a-z]+)(\.[a-z]+)?$/;
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{6,15}$/;
 
                 // Validation
                 let isValid = true;
@@ -157,9 +157,12 @@
 
                 // Password validation
                 if (!passwordValue) {
-                    showError(passwordInput, passwordLabel, 'Password is required', 'red');
+                    showError(passwordInput, passwordLabel, 'Password is required');
                     isValid = false;
-                } else {
+                }else if (!passwordRegex.test(passwordValue)) {
+                    showError(passwordInput, passwordLabel, 'Must use minimun 6 charcters and include special characters');
+                    isValid = false;
+                }else {
                     clearError(passwordInput, passwordLabel, 'Password');
                 }
 
@@ -169,12 +172,12 @@
                         email: emailValue,
                         password: passwordValue
                     };
-                    signin(data);
+                    signup(data);
                 }
             });
 
-            function signin(data) {
-                fetch('/signin', {
+            function signup(data) {
+                fetch('/signup', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
