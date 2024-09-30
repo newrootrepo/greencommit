@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up session (for login session management)
 app.use(session({
-    secret: config.session.secret,
+    secret: config.session.secret, 
     resave: false,
     saveUninitialized: false
 }));
@@ -35,7 +35,7 @@ app.use(session({
 mongoose.connect(config.db.url)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log('MongoDB connection error:', err));
-
+ 
 
 // Home route
 app.get('/', (req, res) => {

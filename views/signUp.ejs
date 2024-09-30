@@ -6,6 +6,7 @@
     <title><%=title %></title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
 
     <style>
@@ -56,8 +57,8 @@
         <div class="inner-container"> 
             <div class="inner-inner-container">
                 <div class="input-container">
-                    <h1>Sign In</h1>
-                    <form id="signin-form">
+                    <h1>Sign Up</h1>
+                    <form id="signup-form">
                         <div class="error-message" id="global-label"></div>
                         <div class="input-container">
                             <input type="email" id="email" name="email" placeholder="Email">
@@ -76,12 +77,10 @@
             </div>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('signin-form');
@@ -143,42 +142,40 @@
 
             if (isValid) {
                 const data = {
-                    emailInput,
-                    passwordInput
+                    email,
+                    password
                 }
-                signin(data)
+                signup(data)
             }
-
-            function signin(email, password) {
-                fetch('/signin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ data })
-                }).then(res => res.json())
+                function signup(email, password) {
+                    fetch('/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ data })
+                    }).then(res => res.json())
                     .then(res => {
-                        if (res.success) {
+                        if(res.success) {
                             var notyf = new Notyf();
                             notyf.success(res.message, 1000);
-                        } else {
+                        }else {
                             let errorLabel = document.getElementById('global-label')
-                            if (errorLabel) {
+                            if(errorLabel) {
                                 errorLabel.textContent = res.message
                                 errorLabel.textContent = res.message
                             }
                         }
                     }).catch(error => {
                         let errorLabel = document.getElementById('global-label')
-                        if (errorLabel) {
-                            errorLabel.textContent = error.message
+                        if(errorLabel) {
+                            errorLabel.classList.add('error-message')
                             errorLabel.textContent = error.message
                         }
                     })
-            }
-
-        })
-
+                }
+                
+            })
     </script>
 </body>
 </html>
