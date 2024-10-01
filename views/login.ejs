@@ -8,107 +8,43 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
 
-    <style>
-        .input-container {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #253e01;
-        }
-
-        .placeholder-label {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            font-size: 16px;
-            color: #999;
-            pointer-events: none;
-            transition: 0.2s ease all;
-            transform: translateY(-50%);
-        }
-
-        input:focus ~ .placeholder-label,
-        input:not(:placeholder-shown) ~ .placeholder-label {
-            top: -10px;
-            font-size: 12px;
-            /* color: #e9e9e9; */
-            background-color: rgba(255, 255, 255, 0);
-            padding: 0 5px;
-        }
-
-        input.error {
-            border-color: #ff0000;
-        }
-
-        .error-message {
-            color: #ff0000;
-            font-size: 12px;
-        }
-
-        .btn-signin {
-            width: 100%;
-            padding: 10px;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .btn-signin:hover {
-            background-color: #3a5a50;
-        }
-
-        .text-center {
-            text-align: center;
-            margin: 10px 0;
-        }
-        a {
-            color: #dee1df;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-            color: #dee1df;
-        }
-
-        
-    </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="inner-container"> 
-            <div class="inner-inner-container">
-                <div class="input-container">
-                    <h1>Sign In</h1>
-                    <form id="signin-form">
-                        <div class="error-message" id="global-label"></div>
-                        <div class="input-container">
-                            <input type="text" id="email" name="email" placeholder=" ">
-                            <span class="placeholder-label" id="email-label">Email</span>
-                        </div>
-                        <div class="input-container">
-                            <input type="password" id="password" name="password" placeholder=" ">
-                            <span class="placeholder-label" id="password-label">Password</span>
-                        </div>
-                        <button class="btn-signin button-Submit">Submit</button>
-                        <div class="text-center">or</div>
-                        <div class="text-center">
-                            <a href="#">Sign up with Google</a>
-                        </div>
-                    </form>
+    <div class="main-container">
+        <div class="users-bg">
+            <img src="/assets/users-background.png" alt="">
+        </div>
+        <div class="container-fluid">
+            <div class="inner-container"> 
+                <div class="inner-inner-container">
+                    <div class="input-container">
+                        <h1>Login</h1>
+                        <form id="signin-form">
+                            <div class="error-message" id="global-label"></div>
+                            <div class="input-container">
+                                <input type="text" id="email" name="email" placeholder=" ">
+                                <span class="placeholder-label" id="email-label">Email</span>
+                            </div>
+                            <div class="input-container">
+                                <input type="password" id="password" name="password" placeholder=" ">
+                                <span class="placeholder-label" id="password-label">Password</span>
+                            </div>
+    
+                            <div class="button-container1">
+                                <a href="#" class="forgot-btn">forgot password?</a>
+                                <button class="submit-btn" type="submit">Submit</button>
+                            </div>
+                            <span class="signin-or">or</span>
+                            <hr class="login-hr" style="border: none; border-top: 1px solid #fff; width: 100%;"/>
+                            <a href="#" class="google-signin">
+                                <span class="google-signin-text">Login using google</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50" fill="#fff">
+                                    <path d="M 25.996094 48 C 13.3125 48 2.992188 37.683594 2.992188 25 C 2.992188 12.316406 13.3125 2 25.996094 2 C 31.742188 2 37.242188 4.128906 41.488281 7.996094 L 42.261719 8.703125 L 34.675781 16.289063 L 33.972656 15.6875 C 31.746094 13.78125 28.914063 12.730469 25.996094 12.730469 C 19.230469 12.730469 13.722656 18.234375 13.722656 25 C 13.722656 31.765625 19.230469 37.269531 25.996094 37.269531 C 30.875 37.269531 34.730469 34.777344 36.546875 30.53125 L 24.996094 30.53125 L 24.996094 20.175781 L 47.546875 20.207031 L 47.714844 21 C 48.890625 26.582031 47.949219 34.792969 43.183594 40.667969 C 39.238281 45.53125 33.457031 48 25.996094 48 Z"></path>
+                                  </svg>
+                            </a>
+                            <a href="#" class="to-signup-btn">Register new user</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,103 +55,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('signin-form');
-
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-
-                // Select input fields
-                const emailInput = document.getElementById('email');
-                const passwordInput = document.getElementById('password');
-
-                // Select corresponding labels
-                const emailLabel = document.getElementById('email-label');
-                const passwordLabel = document.getElementById('password-label');
-
-                // Store current values
-                let emailValue = emailInput.value.trim();
-                let passwordValue = passwordInput.value.trim();
-
-                // Regex patterns
-                const emailRegex = /^([a-zA-Z0-9._]+)@([a-zA-Z0-9])+\.([a-z]+)(\.[a-z]+)?$/;
-
-                // Validation
-                let isValid = true;
-
-                // Email validation
-                if (!emailValue) {
-                    showError(emailInput, emailLabel, 'Email is required');
-                    isValid = false;
-                } else if (!emailRegex.test(emailValue)) {
-                    showError(emailInput, emailLabel, 'Invalid Email');
-                    isValid = false;
-                } else {
-                    clearError(emailInput, emailLabel, 'Email');
-                }
-
-                // Password validation
-                if (!passwordValue) {
-                    showError(passwordInput, passwordLabel, 'Password is required', 'red');
-                    isValid = false;
-                } else {
-                    clearError(passwordInput, passwordLabel, 'Password');
-                }
-
-        
-                if (isValid) {
-                    const data = {
-                        email: emailValue,
-                        password: passwordValue
-                    };
-                    signin(data);
-                }
-            });
-
-            function signin(data) {
-                fetch('/signin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                    .then((res) => res.json())
-                    .then((res) => {
-                        if (res.success) {
-                            var notyf = new Notyf();
-                            notyf.success(res.message, 1000);
-                        } else {
-                            handleGlobalError(res.message);
-                        }
-                    })
-                    .catch((error) => {
-                        handleGlobalError(error.message);
-                    });
-            }
-
-
-            function showError(input, label, message) {
-                input.classList.add('error');
-                label.textContent = message;
-                label.classList.add('error-message');
-            }
-
-            function clearError(input, label, defaultMessage) {
-                input.classList.remove('error');
-                label.textContent = defaultMessage;
-                label.classList.remove('error-message');
-            }
-
-            function handleGlobalError(message) {
-                let errorLabel = document.getElementById('global-label');
-                if (errorLabel) {
-                    errorLabel.textContent = message;
-                }
-            }
-        });
-
-    </script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
