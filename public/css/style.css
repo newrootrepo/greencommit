@@ -1,9 +1,28 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
 body {
+     width: 100%;
+}
+
+.main-container {
     background-color: #274E3F; 
     height: 100vh; 
     margin: 0; 
-    position: relative; 
+    position: relative;
+}
+
+.users-bg {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.users-bg img {
+    width: 100vw;
+    height: 100vh;
 }
 
 .inner-container {
@@ -12,7 +31,7 @@ body {
     max-width: 800px; 
     height: auto; 
     min-height: 70%;
-    border-radius: 10px; 
+    border-radius: 20px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 50%;
@@ -23,27 +42,29 @@ body {
     justify-content: center;
     padding: 20px; 
     box-sizing: border-box;
+    background-color: #4c746499;
+    backdrop-filter: blur(13px);
 }
 
 .inner-inner-container {
     background-color: #274E3F;
-    width: 90%;
-    max-width: 400px; 
+    width: 80%;
+    max-width: 380px; 
     height: auto; 
     min-height: 400px;
-    border-radius: 10px; 
+    border-radius: 20px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center; 
     justify-content: center;
-    padding: 20px;
+    padding: 20px 40px;
     box-sizing: border-box; 
 }
 
 .input-container h1 {
     color: #fff;
     font-size: 44px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Pacifico', cursive, 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     margin-bottom: 20px;
     text-align: center; 
 }
@@ -53,13 +74,29 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #253e01;
 }
 
 .input-container input {
     width: 100%;
     padding: 10px; 
     border: none; 
-    border-bottom: 2px solid #ccc; 
+    border-bottom: 2px solid #e8e8e8;
+    border-radius: 0;
     background-color: transparent; 
     font-size: 16px;
     box-sizing: border-box; 
@@ -68,13 +105,14 @@ body {
 }
 
 .input-container input::placeholder {
-    color: #ccc;
+    color: #969696;
 }
 
 .input-container input:focus {
     border-bottom: 2px solid #fff; 
 }
-.input-container button {
+
+/* .input-container button {
     width: 100%;
     padding: 10px;
     background-color: #ffffff;
@@ -87,7 +125,155 @@ body {
 
 .input-container button:hover {
     background-color: #cccccc;
+} */
+
+input:focus ~ .placeholder-label,
+input:not(:placeholder-shown) ~ .placeholder-label {
+    top: -10px;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0);
+    opacity: 70%;
+    padding: 0 5px;
 }
+
+.placeholder-label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 16px;
+    color: #eaeaea;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    transform: translateY(-50%);
+}
+
+input.error {
+    border-color: #ff0000;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 12px;
+}
+
+.button-container1 {
+    font-family: "Roboto Mono", monospace;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.button-container1 .forgot-btn {
+    color: #e8e8e8;
+    font-size: 0.8em;
+    opacity: 80%;
+}
+
+.button-container1 .submit-btn {
+    color: #fff;
+    padding: 5px 20px;
+    background-color: #4C7464;
+    font-size: 1.2em;
+    font-weight: 900;
+    border-radius: 5px;
+    border: none;
+}
+
+.button-container1 .submit-btn:focus {
+    outline: none;
+}
+
+.signin-or {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    color: #eaeaea;
+    text-transform: uppercase;
+    opacity: 70%;
+}
+
+.google-signin {
+    display: block;
+    background-color: #0938267b;
+    text-align: center;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.google-signin svg {
+    opacity: 50%;
+}
+
+.google-signin:hover {
+    text-decoration: none;
+}
+
+.google-signin:hover .google-signin-text {
+    color: #e7e7e7;
+}
+
+.google-signin:hover svg {
+    opacity: 75%;
+}
+
+.google-signin-text {
+    color: #c1d7ce;
+    font-size: 0.9em;
+    font-family: "Roboto Mono", monospace;
+    padding: 5px;
+}
+
+.to-signup-btn {
+    display: block;
+    margin: 10px;
+    font-family: "Roboto Mono", monospace;
+    text-align: center;
+    font-size: 0.9em;
+    opacity: 60%;
+    color: #c1d7ce;
+}
+
+.to-signup-btn:hover {
+    opacity: 100%;
+    color: #c1d7ce;
+    text-decoration: none;
+}
+
+.login-hr {
+    opacity: 15%;
+}
+
+/* .btn-signin {
+    width: 100%;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-signin:hover {
+    background-color: #3a5a50;
+}
+
+.text-center {
+    text-align: center;
+    margin: 10px 0;
+}
+a {
+    color: #dee1df;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #dee1df;
+}
+
 .button-Submit {
     background-color: #4C7464; 
     color: #fff;
@@ -132,7 +318,7 @@ body {
 .button-Submit:focus {
     outline: none; 
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
-}
+} */
 
 @media (max-width: 768px) {
     .inner-container {
@@ -147,3 +333,5 @@ body {
         min-height: 60%;
     }
 }
+
+ /* Login styles  ///////////////////////////// */
